@@ -1,3 +1,13 @@
+
+
+# Simple Taxi App
+
+> Created on 6th November 2022
+
+## Packages used
+
+- Leaflet for React - [Installation | React Leaflet (react-leaflet.js.org)](https://react-leaflet.js.org/docs/start-installation/)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
