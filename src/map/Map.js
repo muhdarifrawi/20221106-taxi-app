@@ -16,7 +16,7 @@ function Map(props) {
     
     L.Marker.prototype.options.icon = DefaultIcon;
 
-    const redOptions = { color: 'red' }
+    const coordinatesOptions = { color: 'blue' }
     // const polyline = [
     //     [103.7413428293, 1.15996825144986],
     //     [103.741299851279, 1.15978016934132],
@@ -34,7 +34,7 @@ function Map(props) {
                     OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                <Polygon pathOptions={redOptions} positions={props.coordinates || []} />
+                <Polygon pathOptions={coordinatesOptions} positions={props.coordinates || []} />
                 <Marker position={[1.3521, 103.8198]}>
                     <Popup>
                         A pretty CSS3 popup. <br /> Easily customizable.
