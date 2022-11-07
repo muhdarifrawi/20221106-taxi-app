@@ -6,6 +6,61 @@ import 'leaflet/dist/leaflet.css';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 
+function mapArea(index){
+    let mapAreaArr = [
+        "Pulau Satumu (dock)",
+        "Pulau Satumu",
+        "Island Southeast of Pulau Senang",
+        "Pulau Senang",
+        "Sea Area, East of Pulau Pawai",
+        "Sea Area, North of Pulau Pawai",
+        "Pulau Pawai",
+        "Sea Area, West of Pulau Semakau",
+        "Pulau Sebarok",
+        "Pulau Sudong",
+        "Pulau Jong",
+        "Pulau Salu",
+        "Pulau Semakau",
+        "Pulau Hantu Kecil",
+        "Pulau Hantu Besar",
+        "Pulau Busing",
+        "West of Sultan Shoal",
+        "Sultan Shoal",
+        "Pulau Bukom",
+        "Pulau Pergam",
+        "West of Singapore",
+        "Pulau Sarimbun",
+        "Pulau Seletar",
+        "North of Singapore",
+        "Pulau Ketam",
+        "Pulau Ubin",
+        "North-East of Singapore",
+        "Sea Area, North-East of Pulau Tekong",
+        "Pulau Tekong",
+        "Sea Area, South-East of Singapore",
+        "Sea Area, East of Singapore",
+        "East of Singapore",
+        "Pulau Subar Laut (Breakwater)",
+        "Pulau Subar Laut",
+        "Pulau Subar Darat",
+        "South of Pulau Kusu (Breakwater)",
+        "Pulau Kusu",
+        "North of Pulau Kusu (Breakwater)",
+        "St. John's Island, Lazarus Island, Pulau Renget",
+        "Pulau Tekukor",
+        "South of Sentosa (Breakwater)",
+        "Sea Area, South-East of Sentosa",
+        "Southernmost Point of Continental Asia",
+        "Island, South-West of Sentosa",
+        "South-West of Sentosa (Breakwater)",
+        "South-West of Sentosa (Breakwater)",
+        "South-West of Sentosa (Breakwater)",
+        "Sea Area, North of Sentosa",
+        "South of Singapore"
+    ]
+
+    return mapAreaArr[index]
+}
 
 function Map(props) {
     // import default icon from leaflet
@@ -17,12 +72,7 @@ function Map(props) {
     L.Marker.prototype.options.icon = DefaultIcon;
 
     const coordinatesOptions = { color: 'blue' }
-    // const polyline = [
-    //     [103.7413428293, 1.15996825144986],
-    //     [103.741299851279, 1.15978016934132],
-    //     [103.741260919125, 1.15978885810629]
-    // ]
-    // console.log("Map", props.coordinates)
+
     let holdingCoordinates = []
     if (props.coordinates !== undefined){
         holdingCoordinates = props.coordinates
@@ -42,7 +92,7 @@ function Map(props) {
                 {
                     holdingCoordinates.map((ele, index) =>{
                         return(
-                            <LayersControl.Overlay checked name={index}>
+                            <LayersControl.Overlay checked name={mapArea(index)}>
                                 <Polygon pathOptions={coordinatesOptions} positions={ele || []} />
                             </LayersControl.Overlay>
                             
