@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import axios from 'axios';
 
-import Map from '../map/Map';
+import Taxi from './Taxi';
 import { hasPointerEvents } from "@testing-library/user-event/dist/utils";
 
 function GeoData(){
@@ -38,7 +38,7 @@ function GeoData(){
     }
     
     return (
-        <Map coordinates={coordinates}/>
+        <Taxi coordinates={coordinates}/>
     )
 }
 

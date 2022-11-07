@@ -6,7 +6,7 @@ import 'leaflet/dist/leaflet.css';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 
-function mapArea(index){
+function mapArea(index) {
     let mapAreaArr = [
         "Pulau Satumu (dock)",
         "Pulau Satumu",
@@ -68,37 +68,52 @@ function Map(props) {
         iconUrl: icon,
         shadowUrl: iconShadow
     });
-    
+
     L.Marker.prototype.options.icon = DefaultIcon;
 
     const coordinatesOptions = { color: 'blue' }
 
     let holdingCoordinates = []
-    if (props.coordinates !== undefined){
+    if (props.coordinates !== undefined) {
         holdingCoordinates = props.coordinates
     }
+
+    let holdingTaxiCoordinates = []
+    if (props.taxiCoordinates !== undefined) {
+        holdingTaxiCoordinates = props.taxiCoordinates
+    }
+    console.log("taxi:", props)
     return (
         <div id="map">
             <MapContainer center={[1.3521, 103.8198]}
                 zoom={12}
                 scrollWheelZoom={true}>
-                
+
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">
                     OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                <LayersControl position='topright'>
                 {
-                    holdingCoordinates.map((ele, index) =>{
-                        return(
-                            <LayersControl.Overlay checked name={mapArea(index)}>
-                                <Polygon pathOptions={coordinatesOptions} positions={ele || []} />
-                            </LayersControl.Overlay>
-                            
-                        )
-                    })
-                }
+                        holdingTaxiCoordinates.map((ele, index) => {
+                            console.log(ele)
+                            return (
+                                <Marker position={ele || []}>
+                                </Marker>
+                            )
+                        })
+                    }
+                <LayersControl position='topright'>
+                    {
+                        holdingCoordinates.map((ele, index) => {
+                            return (
+                                <LayersControl.Overlay checked name={mapArea(index)}>
+                                    <Polygon pathOptions={coordinatesOptions} positions={ele || []} />
+                                </LayersControl.Overlay>
+
+                            )
+                        })
+                    }
                 </LayersControl>
             </MapContainer>
         </div>

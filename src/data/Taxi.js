@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import axios from 'axios';
+import Map from '../map/Map';
 
-function GetTaxi() {
+function GetTaxi(props) {
     const [taxiData, setTaxiData] = useState();
+    const [taxiCoordinates, setTaxiCoordinates] = useState();
     const getTaxiData = async () => {
         const monthNames = ["January", "February", "March", "April", "May", "June",
             "July", "August", "September", "October", "November", "December"
@@ -32,8 +34,13 @@ function GetTaxi() {
 
     const getTaxiCoordinates = (taxiData) => {
         console.log(taxiData["data"]["features"][0]["geometry"]["coordinates"])
+        let taxiCoordinates = taxiData["data"]["features"][0]["geometry"]["coordinates"];
+        let cleanTaxiCoordinates = taxiCoordinates.map(i => i.reverse());
+        setTaxiCoordinates(cleanTaxiCoordinates);
     }
-
+    return (
+        <Map taxiCoordinates={taxiCoordinates} coordinates={props.coordinates}/>
+    )
 }
 
 export default GetTaxi;
