@@ -24,7 +24,7 @@ function GeoData(){
 
     const getCoordinates = (data) => {
         let compiledCoordinates = []
-        console.log("coordinates")
+        // console.log("coordinates")
         for(let i=0; i < data.features.length; i++){
             let level1 = data.features[i]
             for(let j=0; j < level1["geometry"]["coordinates"].length; j++){
