@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import axios from 'axios';
 
 import Map from '../map/Map';
+import { hasPointerEvents } from "@testing-library/user-event/dist/utils";
 
 function GeoData(){
     // declare states
@@ -33,13 +34,22 @@ function GeoData(){
             for(let j=0; j < level1["geometry"]["coordinates"].length; j++){
                 // console.log(j, level1["geometry"]["coordinates"][j][0])
                 let level2 = level1["geometry"]["coordinates"][j][0]
-                for(let k=0; k < level2.length; k++){
-                    // console.log(k, level2[k])
-                    let eachCoordinate = [level2[k][1], level2[k][0]]
-                    compiledCoordinates.push(eachCoordinate);
-                }
+                // for(let k=0; k < level2.length; k++){
+                //     // console.log(k, level2[k])
+                //     let holder = []
+                //     console.log(holder)
+                //     let eachCoordinate = [level2[k][1], level2[k][0]]
+                //     holder.push(eachCoordinate);
+                //     console.log(holder)
+                //     compiledCoordinates.push(holder);
+                // }
+                // console.log(j, level2)
+                let cleanCoordinate = level2.map(i => i.slice(0,-1).reverse())
+                // console.log(cleanCoordinate)
+                compiledCoordinates.push(cleanCoordinate)
             }
         }
+        // console.log(compiledCoordinates)
         setCoordinates(compiledCoordinates);
     }
     

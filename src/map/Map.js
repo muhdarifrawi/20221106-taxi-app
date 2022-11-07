@@ -22,7 +22,7 @@ function Map(props) {
     //     [103.741299851279, 1.15978016934132],
     //     [103.741260919125, 1.15978885810629]
     // ]
-    console.log("Map", props.coordinates)
+    // console.log("Map", props.coordinates)
     return (
         <div id="map">
             <MapContainer center={[1.3521, 103.8198]}
