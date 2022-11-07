@@ -1,6 +1,6 @@
 import './Map.css';
 import L from 'leaflet';
-import { MapContainer, TileLayer, useMap, Marker, Popup, Polygon } from 'react-leaflet'
+import { MapContainer, TileLayer, useMap, Marker, Popup, Polygon, LayersControl } from 'react-leaflet'
 import { divIcon } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import icon from 'leaflet/dist/images/marker-icon.png';
@@ -23,6 +23,10 @@ function Map(props) {
     //     [103.741260919125, 1.15978885810629]
     // ]
     // console.log("Map", props.coordinates)
+    let holdingCoordinates = []
+    if (props.coordinates !== undefined){
+        holdingCoordinates = props.coordinates
+    }
     return (
         <div id="map">
             <MapContainer center={[1.3521, 103.8198]}
@@ -34,12 +38,25 @@ function Map(props) {
                     OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                <Polygon pathOptions={coordinatesOptions} positions={props.coordinates || []} />
-                <Marker position={[1.3521, 103.8198]}>
+                <LayersControl position='topright'>
+                {
+                    holdingCoordinates.map((ele, index) =>{
+                        return(
+                            <LayersControl.Overlay checked name={index}>
+                                <Polygon pathOptions={coordinatesOptions} positions={ele || []} />
+                            </LayersControl.Overlay>
+                            
+                        )
+                    })
+                }
+                </LayersControl>
+                
+                {/* <Polygon pathOptions={coordinatesOptions} positions={props.coordinates || []} /> */}
+                {/* <Marker position={[1.3521, 103.8198]}>
                     <Popup>
                         A pretty CSS3 popup. <br /> Easily customizable.
                     </Popup>
-                </Marker>
+                </Marker> */}
             </MapContainer>
         </div>
     )
