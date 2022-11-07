@@ -100,13 +100,6 @@ function Map(props) {
                     })
                 }
                 </LayersControl>
-                
-                {/* <Polygon pathOptions={coordinatesOptions} positions={props.coordinates || []} /> */}
-                {/* <Marker position={[1.3521, 103.8198]}>
-                    <Popup>
-                        A pretty CSS3 popup. <br /> Easily customizable.
-                    </Popup>
-                </Marker> */}
             </MapContainer>
         </div>
     )
