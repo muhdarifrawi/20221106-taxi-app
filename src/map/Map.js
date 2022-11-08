@@ -69,13 +69,13 @@ function mapArea(index) {
 function Map(props) {
     // import default icon from leaflet
     let DefaultIcon = L.icon({
-        iconUrl: icon,
-        shadowUrl: iconShadow
+        iconUrl: "./icons/taxi-colored.png",
+        iconSize:[30,30],
     });
 
     L.Marker.prototype.options.icon = DefaultIcon;
 
-    const coordinatesOptions = { color: 'blue' }
+    const coordinatesOptions = { color: '#434A42' }
 
     let holdingCoordinates = []
     if (props.coordinates !== undefined) {
