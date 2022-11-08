@@ -6,3 +6,8 @@
     width: 100vw;
     height: 100vh;
 }
+
+#info-btn{
+    margin:30px;
+    pointer-events: auto;
+}

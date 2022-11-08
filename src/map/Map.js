@@ -7,7 +7,7 @@ import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 
 // imports needed for marker cluster
-import '@changey/react-leaflet-markercluster/dist/styles.min.css'; 
+import '@changey/react-leaflet-markercluster/dist/styles.min.css';
 import MarkerClusterGroup from '@changey/react-leaflet-markercluster';
 
 function mapArea(index) {
@@ -66,11 +66,17 @@ function mapArea(index) {
     return mapAreaArr[index]
 }
 
+function taxiCounts(ele){
+    let numberTaxis = ele.map(i => i.length)
+    let totalCounts = numberTaxis.reduce((prev,curr)=> prev + curr, 0)
+    return totalCounts
+}
+
 function Map(props) {
     // import default icon from leaflet
     let DefaultIcon = L.icon({
         iconUrl: "./icons/taxi-colored.png",
-        iconSize:[30,30],
+        iconSize: [30, 30],
     });
 
     L.Marker.prototype.options.icon = DefaultIcon;
@@ -89,6 +95,26 @@ function Map(props) {
     console.log("taxi:", props)
     return (
         <div id="map">
+            {/* <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+                Link with href
+            </a> */}
+            <button id="info-btn" class="btn btn-primary leaflet-bottom" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasInfo" aria-controls="offcanvasInfo">
+                Show Info
+            </button>
+
+            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasInfo" aria-labelledby="offcanvasInfoLabel">
+                <div class="offcanvas-header">
+                    <h4 class="offcanvas-title" id="offcanvasInfoLabel">Taxi Info</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <div>
+                        <h5>
+                            Available Taxis: {taxiCounts(holdingTaxiCoordinates)}
+                        </h5>
+                    </div>
+                </div>
+            </div>
             <MapContainer center={[1.3521, 103.8198]}
                 zoom={12}
                 scrollWheelZoom={true}>
@@ -98,9 +124,9 @@ function Map(props) {
                     OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                
+
                 <MarkerClusterGroup>
-                {
+                    {
                         holdingTaxiCoordinates.map((ele, index) => {
                             console.log(ele)
                             return (
@@ -110,7 +136,7 @@ function Map(props) {
                         })
                     }
                 </MarkerClusterGroup>
-                
+
                 <LayersControl position='topright'>
                     {
                         holdingCoordinates.map((ele, index) => {
