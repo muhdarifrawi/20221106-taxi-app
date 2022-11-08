@@ -6,6 +6,10 @@ import 'leaflet/dist/leaflet.css';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 
+// imports needed for marker cluster
+import '@changey/react-leaflet-markercluster/dist/styles.min.css'; 
+import MarkerClusterGroup from '@changey/react-leaflet-markercluster';
+
 function mapArea(index) {
     let mapAreaArr = [
         "Pulau Satumu (dock)",
@@ -94,6 +98,8 @@ function Map(props) {
                     OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
+                
+                <MarkerClusterGroup>
                 {
                         holdingTaxiCoordinates.map((ele, index) => {
                             console.log(ele)
@@ -103,6 +109,8 @@ function Map(props) {
                             )
                         })
                     }
+                </MarkerClusterGroup>
+                
                 <LayersControl position='topright'>
                     {
                         holdingCoordinates.map((ele, index) => {
