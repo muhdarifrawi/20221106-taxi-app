@@ -6,7 +6,22 @@
 
 ## Packages used
 
+- React
 - Leaflet for React - [Installation | React Leaflet (react-leaflet.js.org)](https://react-leaflet.js.org/docs/start-installation/)
+- Leaflet Marker Cluster for React - https://www.npmjs.com/package/@changey/react-leaflet-markercluster
+
+## Data source
+
+APIs were taken from [Singapore Dataset Website](https:/www.data.gov.sg):
+- Boundary Layers : 
+    - [Master plan 2019 region boundary (no sea)](https://data.gov.sg/dataset/master-plan-2019-region-boundary-no-sea)
+- Taxi Locations:
+    - [Taxi availability (excludes busy and hired)](https://data.gov.sg/dataset/taxi-availability)
+
+## Acknowledgements
+
+- Taxi icons :
+    - [Taxi icons created by kerismaker - Flaticon](https://www.flaticon.com/free-icons/taxi)
 
 # Getting Started with Create React App
 
