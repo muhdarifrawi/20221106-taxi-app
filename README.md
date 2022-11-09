@@ -3,6 +3,7 @@
 # Simple Taxi App
 
 > Created on 6th November 2022
+Deployed site: [Taxi Counter](https://ubiquitous-pothos-673731.netlify.app/)
 
 ## Packages used
 
