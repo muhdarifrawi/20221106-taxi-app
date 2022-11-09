@@ -79,7 +79,6 @@ function Map(props) {
     }
 
     function handleLocation(event) {
-        console.log(event.target.value)
         setLocationChoice(event.target.value)
     }
     // import default icon from leaflet
@@ -101,12 +100,8 @@ function Map(props) {
     if (props.taxiCoordinates !== undefined) {
         holdingTaxiCoordinates = props.taxiCoordinates
     }
-    console.log("taxi:", holdingTaxiCoordinates)
     return (
         <div id="map">
-            {/* <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
-                Link with href
-            </a> */}
             <button id="info-btn" class="btn btn-light leaflet-bottom" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasInfo" aria-controls="offcanvasInfo">
                 Show Info
             </button>
@@ -181,7 +176,6 @@ function Map(props) {
                 <MarkerClusterGroup>
                     {
                         holdingTaxiCoordinates.map((ele, index) => {
-                            // console.log(ele)
                             return (
                                 <Marker position={ele || []}>
                                 </Marker>

@@ -24,7 +24,6 @@ function GetTaxi(props) {
         )
 
         setTaxiData(taxiData);
-        console.log(taxiData);
         getTaxiCoordinates(taxiData);
     }
 
@@ -33,7 +32,6 @@ function GetTaxi(props) {
     }, []);
 
     const getTaxiCoordinates = (taxiData) => {
-        console.log(taxiData["data"]["features"][0]["geometry"]["coordinates"])
         let taxiCoordinates = taxiData["data"]["features"][0]["geometry"]["coordinates"];
         let cleanTaxiCoordinates = taxiCoordinates.map(i => i.reverse());
         setTaxiCoordinates(cleanTaxiCoordinates);
