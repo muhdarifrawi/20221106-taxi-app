@@ -107,7 +107,7 @@ function Map(props) {
             {/* <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
                 Link with href
             </a> */}
-            <button id="info-btn" class="btn btn-primary leaflet-bottom" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasInfo" aria-controls="offcanvasInfo">
+            <button id="info-btn" class="btn btn-light leaflet-bottom" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasInfo" aria-controls="offcanvasInfo">
                 Show Info
             </button>
 
@@ -115,7 +115,7 @@ function Map(props) {
                 <div class="offcanvas-header">
                     <span class="offcanvas-title" id="offcanvasInfoLabel">
                         <img id="infoIcon" src="./icons/taxi-colored.png" />
-                        <span id="taxiNumbers" class="align-middle">
+                        <span id="taxiNumbers" class="badge bg-primary align-middle ms-2">
                             {taxiCounts(holdingTaxiCoordinates)}
                         </span>
                     </span>
