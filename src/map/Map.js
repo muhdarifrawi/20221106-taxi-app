@@ -162,6 +162,14 @@ function Map(props) {
                         }
                     </div>
                 </div>
+                <div class="offcanvas-header d-flex justify-content-start">
+                    <a href="https://github.com/muhdarifrawi" class="social-media me-3">
+                        <img src="./icons/github.png" style={{height: "32px"}}/>
+                    </a>
+                    <a href="https://www.linkedin.com/in/arif-rawi-9661aa192/" class="social-media me-3">
+                        <img src="./icons/linkedin.png" style={{height: "32px"}}/>
+                    </a>
+                </div>
             </div>
             <MapContainer center={[1.3521, 103.8198]}
                 zoom={12}
