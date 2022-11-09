@@ -149,20 +149,17 @@ function Map(props) {
                                 if (condition) {
                                     return (
                                         <div>
-                                            <span>{mapArea(index)} </span>
-                                            <br />
-                                            <div class="progress" style={{height: "20px"}}>
+                                            <div class="mt-1 mb-1">{mapArea(index)} </div>
+                                            <div class="progress mb-2" style={{height: "20px"}}>
                                                 <div class="progress-bar" role="progressbar" 
                                                 aria-label="Example 20px high"
                                                 style={{width:percentageConv + "%"}} 
                                                 aria-valuenow={percentageConv}
                                                 aria-valuemin="0" 
                                                 aria-valuemax="100">
+                                                {taxiLocationCount}
                                                 </div>
                                             </div>
-                                            <span>
-                                                {taxiLocationCount}
-                                            </span>
                                         </div>
                                     )
                                 }
