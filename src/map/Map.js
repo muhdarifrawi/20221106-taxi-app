@@ -5,7 +5,7 @@ import { divIcon } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 
 // imports needed for marker cluster
 import '@changey/react-leaflet-markercluster/dist/styles.min.css';
@@ -15,7 +15,7 @@ import MarkerClusterGroup from '@changey/react-leaflet-markercluster';
 import pointInPolygon from 'point-in-polygon';
 
 function Map(props) {
-    const [locationChoice,setLocationChoice] = useState("");
+    const [locationChoice, setLocationChoice] = useState("0");
 
     function mapArea(index) {
         let mapAreaArr = [
@@ -69,16 +69,16 @@ function Map(props) {
             "Sea Area, North of Sentosa",
             "South of Singapore"
         ]
-    
+
         return mapAreaArr[index]
     }
-    
-    function taxiCounts(ele){
+
+    function taxiCounts(ele) {
         let numberTaxis = ele.length;
         return numberTaxis
     }
-    
-    function handleLocation(event){
+
+    function handleLocation(event) {
         console.log(event.target.value)
         setLocationChoice(event.target.value)
     }
@@ -114,7 +114,7 @@ function Map(props) {
             <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasInfo" aria-labelledby="offcanvasInfoLabel">
                 <div class="offcanvas-header">
                     <span class="offcanvas-title" id="offcanvasInfoLabel">
-                        <img id="infoIcon" src="./icons/taxi-colored.png"/>
+                        <img id="infoIcon" src="./icons/taxi-colored.png" />
                         <span id="taxiNumbers" class="align-middle">
                             {taxiCounts(holdingTaxiCoordinates)}
                         </span>
@@ -124,35 +124,45 @@ function Map(props) {
                 <div class="offcanvas-body pt-1">
                     <div>
                         <select class="form-select" aria-label="Default select example" onChange={handleLocation}>
-                            <option value="0">Available Locations</option>
+                            <option checked value="0">Available Locations</option>
                             <option value="1">All Locations</option>
                         </select>
                     </div>
                     <div class="container my-3">
                         {
                             holdingCoordinates.map((ele, index) => {
-                                let taxiLocationCount = holdingTaxiCoordinates.filter((eleT)=>{
-                                    return pointInPolygon(eleT,ele)
+                                let taxiLocationCount = holdingTaxiCoordinates.filter((eleT) => {
+                                    return pointInPolygon(eleT, ele)
                                 }).length
                                 let condition = "";
-                                if(locationChoice === "0"){
+                                if (locationChoice === "0") {
                                     condition = taxiLocationCount != 0
                                 }
-                                else if(locationChoice === "1"){
+                                else if (locationChoice === "1") {
                                     condition = taxiLocationCount >= 0
                                 }
-                                else{
-                                    console.log("Locataion choice error")
+                                else {
+                                    console.log("Location choice error")
                                 }
-                                if(condition){
-                                    return(
+                                let percentageConv = Math.floor((taxiLocationCount * 100)/taxiCounts(holdingTaxiCoordinates))
+                                
+                                if (condition) {
+                                    return (
                                         <div>
-                                        <span>{mapArea(index)}: </span>
-                                        <span>
-                                            {holdingTaxiCoordinates.filter((eleT)=>{
-                                            return pointInPolygon(eleT,ele)
-                                        }).length}
-                                        </span>
+                                            <span>{mapArea(index)} </span>
+                                            <br />
+                                            <div class="progress" style={{height: "20px"}}>
+                                                <div class="progress-bar" role="progressbar" 
+                                                aria-label="Example 20px high"
+                                                style={{width:percentageConv + "%"}} 
+                                                aria-valuenow={percentageConv}
+                                                aria-valuemin="0" 
+                                                aria-valuemax="100">
+                                                </div>
+                                            </div>
+                                            <span>
+                                                {taxiLocationCount}
+                                            </span>
                                         </div>
                                     )
                                 }
