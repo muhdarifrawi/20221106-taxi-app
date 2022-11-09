@@ -67,9 +67,8 @@ function mapArea(index) {
 }
 
 function taxiCounts(ele){
-    let numberTaxis = ele.map(i => i.length)
-    let totalCounts = numberTaxis.reduce((prev,curr)=> prev + curr, 0)
-    return totalCounts
+    let numberTaxis = ele.length;
+    return numberTaxis
 }
 
 function Map(props) {
@@ -92,7 +91,7 @@ function Map(props) {
     if (props.taxiCoordinates !== undefined) {
         holdingTaxiCoordinates = props.taxiCoordinates
     }
-    console.log("taxi:", props)
+    console.log("taxi:", holdingTaxiCoordinates)
     return (
         <div id="map">
             {/* <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
@@ -109,9 +108,19 @@ function Map(props) {
                 </div>
                 <div class="offcanvas-body">
                     <div>
-                        <h5>
-                            Available Taxis: {taxiCounts(holdingTaxiCoordinates)}
-                        </h5>
+                        <img id="infoIcon" src="./icons/taxi-colored.png"/>
+                        <span id="taxiNumbers" class="align-middle">
+                            {taxiCounts(holdingTaxiCoordinates)}
+                        </span>
+                    </div>
+                    <div>
+                        {
+                            holdingCoordinates.map((ele, index) => {
+                                return(
+                                    <h6>{mapArea(index)}</h6>
+                                )
+                            })
+                        }
                     </div>
                 </div>
             </div>
@@ -128,7 +137,7 @@ function Map(props) {
                 <MarkerClusterGroup>
                     {
                         holdingTaxiCoordinates.map((ele, index) => {
-                            console.log(ele)
+                            // console.log(ele)
                             return (
                                 <Marker position={ele || []}>
                                 </Marker>
