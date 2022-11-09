@@ -5,6 +5,7 @@ import { divIcon } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+import {useEffect, useState} from "react";
 
 // imports needed for marker cluster
 import '@changey/react-leaflet-markercluster/dist/styles.min.css';
@@ -13,68 +14,74 @@ import MarkerClusterGroup from '@changey/react-leaflet-markercluster';
 // point in polygon package
 import pointInPolygon from 'point-in-polygon';
 
-function mapArea(index) {
-    let mapAreaArr = [
-        "Pulau Satumu (dock)",
-        "Pulau Satumu",
-        "Island Southeast of Pulau Senang",
-        "Pulau Senang",
-        "Sea Area, East of Pulau Pawai",
-        "Sea Area, North of Pulau Pawai",
-        "Pulau Pawai",
-        "Sea Area, West of Pulau Semakau",
-        "Pulau Sebarok",
-        "Pulau Sudong",
-        "Pulau Jong",
-        "Pulau Salu",
-        "Pulau Semakau",
-        "Pulau Hantu Kecil",
-        "Pulau Hantu Besar",
-        "Pulau Busing",
-        "West of Sultan Shoal",
-        "Sultan Shoal",
-        "Pulau Bukom",
-        "Pulau Pergam",
-        "West of Singapore",
-        "Pulau Sarimbun",
-        "Pulau Seletar",
-        "North of Singapore",
-        "Pulau Ketam",
-        "Pulau Ubin",
-        "North-East of Singapore",
-        "Sea Area, North-East of Pulau Tekong",
-        "Pulau Tekong",
-        "Sea Area, South-East of Singapore",
-        "Sea Area, East of Singapore",
-        "East of Singapore",
-        "Pulau Subar Laut (Breakwater)",
-        "Pulau Subar Laut",
-        "Pulau Subar Darat",
-        "South of Pulau Kusu (Breakwater)",
-        "Pulau Kusu",
-        "North of Pulau Kusu (Breakwater)",
-        "St. John's Island, Lazarus Island, Pulau Renget",
-        "Pulau Tekukor",
-        "South of Sentosa (Breakwater)",
-        "Sea Area, South-East of Sentosa",
-        "Southernmost Point of Continental Asia",
-        "Island, South-West of Sentosa",
-        "South-West of Sentosa (Breakwater)",
-        "South-West of Sentosa (Breakwater)",
-        "South-West of Sentosa (Breakwater)",
-        "Sea Area, North of Sentosa",
-        "South of Singapore"
-    ]
-
-    return mapAreaArr[index]
-}
-
-function taxiCounts(ele){
-    let numberTaxis = ele.length;
-    return numberTaxis
-}
-
 function Map(props) {
+    const [locationChoice,setLocationChoice] = useState("");
+
+    function mapArea(index) {
+        let mapAreaArr = [
+            "Pulau Satumu (dock)",
+            "Pulau Satumu",
+            "Island Southeast of Pulau Senang",
+            "Pulau Senang",
+            "Sea Area, East of Pulau Pawai",
+            "Sea Area, North of Pulau Pawai",
+            "Pulau Pawai",
+            "Sea Area, West of Pulau Semakau",
+            "Pulau Sebarok",
+            "Pulau Sudong",
+            "Pulau Jong",
+            "Pulau Salu",
+            "Pulau Semakau",
+            "Pulau Hantu Kecil",
+            "Pulau Hantu Besar",
+            "Pulau Busing",
+            "West of Sultan Shoal",
+            "Sultan Shoal",
+            "Pulau Bukom",
+            "Pulau Pergam",
+            "West of Singapore",
+            "Pulau Sarimbun",
+            "Pulau Seletar",
+            "North of Singapore",
+            "Pulau Ketam",
+            "Pulau Ubin",
+            "North-East of Singapore",
+            "Sea Area, North-East of Pulau Tekong",
+            "Pulau Tekong",
+            "Sea Area, South-East of Singapore",
+            "Sea Area, East of Singapore",
+            "East of Singapore",
+            "Pulau Subar Laut (Breakwater)",
+            "Pulau Subar Laut",
+            "Pulau Subar Darat",
+            "South of Pulau Kusu (Breakwater)",
+            "Pulau Kusu",
+            "North of Pulau Kusu (Breakwater)",
+            "St. John's Island, Lazarus Island, Pulau Renget",
+            "Pulau Tekukor",
+            "South of Sentosa (Breakwater)",
+            "Sea Area, South-East of Sentosa",
+            "Southernmost Point of Continental Asia",
+            "Island, South-West of Sentosa",
+            "South-West of Sentosa (Breakwater)",
+            "South-West of Sentosa (Breakwater)",
+            "South-West of Sentosa (Breakwater)",
+            "Sea Area, North of Sentosa",
+            "South of Singapore"
+        ]
+    
+        return mapAreaArr[index]
+    }
+    
+    function taxiCounts(ele){
+        let numberTaxis = ele.length;
+        return numberTaxis
+    }
+    
+    function handleLocation(event){
+        console.log(event.target.value)
+        setLocationChoice(event.target.value)
+    }
     // import default icon from leaflet
     let DefaultIcon = L.icon({
         iconUrl: "./icons/taxi-colored.png",
@@ -114,14 +121,30 @@ function Map(props) {
                     </span>
                     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
-                <div class="offcanvas-body">
+                <div class="offcanvas-body pt-1">
                     <div>
+                        <select class="form-select" aria-label="Default select example" onChange={handleLocation}>
+                            <option value="0">Available Locations</option>
+                            <option value="1">All Locations</option>
+                        </select>
+                    </div>
+                    <div class="container my-3">
                         {
                             holdingCoordinates.map((ele, index) => {
-                                
-                                if(holdingTaxiCoordinates.filter((eleT)=>{
+                                let taxiLocationCount = holdingTaxiCoordinates.filter((eleT)=>{
                                     return pointInPolygon(eleT,ele)
-                                }).length != 0){
+                                }).length
+                                let condition = "";
+                                if(locationChoice === "0"){
+                                    condition = taxiLocationCount != 0
+                                }
+                                else if(locationChoice === "1"){
+                                    condition = taxiLocationCount >= 0
+                                }
+                                else{
+                                    console.log("Locataion choice error")
+                                }
+                                if(condition){
                                     return(
                                         <div>
                                         <span>{mapArea(index)}: </span>
