@@ -106,30 +106,33 @@ function Map(props) {
 
             <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasInfo" aria-labelledby="offcanvasInfoLabel">
                 <div class="offcanvas-header">
-                    <h4 class="offcanvas-title" id="offcanvasInfoLabel">Taxi Info</h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body">
-                    <div>
+                    <span class="offcanvas-title" id="offcanvasInfoLabel">
                         <img id="infoIcon" src="./icons/taxi-colored.png"/>
                         <span id="taxiNumbers" class="align-middle">
                             {taxiCounts(holdingTaxiCoordinates)}
                         </span>
-                    </div>
+                    </span>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
                     <div>
                         {
                             holdingCoordinates.map((ele, index) => {
                                 
-                                return(
-                                    <div>
-                                    <span>{mapArea(index)}: </span>
-                                    <span>
-                                        {holdingTaxiCoordinates.filter((eleT)=>{
-                                        return pointInPolygon(eleT,ele)
-                                    }).length}
-                                    </span>
-                                    </div>
-                                )
+                                if(holdingTaxiCoordinates.filter((eleT)=>{
+                                    return pointInPolygon(eleT,ele)
+                                }).length != 0){
+                                    return(
+                                        <div>
+                                        <span>{mapArea(index)}: </span>
+                                        <span>
+                                            {holdingTaxiCoordinates.filter((eleT)=>{
+                                            return pointInPolygon(eleT,ele)
+                                        }).length}
+                                        </span>
+                                        </div>
+                                    )
+                                }
                             })
                         }
                     </div>
