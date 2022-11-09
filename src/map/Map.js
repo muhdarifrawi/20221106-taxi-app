@@ -10,6 +10,9 @@ import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import '@changey/react-leaflet-markercluster/dist/styles.min.css';
 import MarkerClusterGroup from '@changey/react-leaflet-markercluster';
 
+// point in polygon package
+import pointInPolygon from 'point-in-polygon';
+
 function mapArea(index) {
     let mapAreaArr = [
         "Pulau Satumu (dock)",
@@ -116,8 +119,16 @@ function Map(props) {
                     <div>
                         {
                             holdingCoordinates.map((ele, index) => {
+                                
                                 return(
-                                    <h6>{mapArea(index)}</h6>
+                                    <div>
+                                    <span>{mapArea(index)}: </span>
+                                    <span>
+                                        {holdingTaxiCoordinates.filter((eleT)=>{
+                                        return pointInPolygon(eleT,ele)
+                                    }).length}
+                                    </span>
+                                    </div>
                                 )
                             })
                         }
